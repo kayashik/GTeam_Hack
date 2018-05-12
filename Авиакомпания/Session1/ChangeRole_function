@@ -1,0 +1,32 @@
+DELIMITER $$
+
+use `session1` $$
+
+DROP FUNCTION IF EXISTS `ChangeRole_function` $$
+CREATE FUNCTION `ChangeRole_function` (email_ varchar(45), firstName_ varchar(45), lastName_ varchar(45), office_ varchar(45), role_ varchar(45)) RETURNS INT
+BEGIN
+
+declare userId integer;
+declare roleId_ integer;
+
+select u.Id into userId
+
+  from users u
+    join offices on u.officeId = office.Id
+
+  where u.email = email_ and
+    u.firstName = firstName_ and
+    u.lastName = lastName_ and
+  offices.Title = office_;
+ if isnull(userid) then
+    return 1;
+ end if;
+
+select id into roleid_ from roles where Title = role_;
+
+update users set roleid = roleid_ where id = userid;
+return 0;
+
+END $$
+
+DELIMITER ;

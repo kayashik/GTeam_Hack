@@ -1,0 +1,30 @@
+DELIMITER $$
+use `session1` $$
+
+DROP FUNCTION IF EXISTS `Logout_function` $$
+CREATE FUNCTION `Logout_function` (sessionId integer, status_ varchar(45)) RETURNS INT
+BEGIN
+
+  Declare eventId integer;
+  Declare statusId integer;
+  Declare userId integer;
+
+  select UserId into userId from sessions WHERE sessionId = sessionId and isActive = 1;
+
+  if ISNULL(userId) then
+    return 1;
+  end if;
+
+  UPDATE sessions SET isActive = 0
+    WHERE sessionId = sessionId;
+
+  select Id into eventId from `events` where Name = 'Logout';
+  select Id into statusId from `events` where Name = status_;
+
+  insert tracking values(NULL, userId, eventId, statusId, Null, NOW(), sessionId);
+
+  return 0;
+
+END $$
+
+DELIMITER ;

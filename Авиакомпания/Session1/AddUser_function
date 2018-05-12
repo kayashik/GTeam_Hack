@@ -1,0 +1,26 @@
+DELIMITER $$
+
+use `session1` $$
+
+DROP FUNCTION IF EXISTS `AddUser_function` $$
+CREATE FUNCTION `AddUser_function` (office_ varchar(45), role_ varchar(45), email_ varchar(45), password_ varchar(45), fn_ varchar(45), ln_ varchar(45), bd_ varchar(45), active_ int) returns int
+BEGIN
+
+declare roleid_ int;
+declare officeid_ int;
+declare exist int;
+
+select id into exist from users where email = email_;
+
+select id into roleid_ from roles where Title = role_;
+select id into officeid_ from offices where Title = office_;
+
+if isnull(exist) then
+  insert users values ( null, roleid_, email_, md5(password_), fn_, ln_, officeif_, bd_, active_);
+  return 0;
+else
+  return 1;
+end if;
+END $$
+
+DELIMITER ;

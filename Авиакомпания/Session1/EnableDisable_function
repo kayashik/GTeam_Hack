@@ -1,0 +1,29 @@
+DELIMITER $$
+
+use `session1` $$
+
+DROP FUNCTION IF EXISTS `EnableDisable_function` $$
+CREATE FUNCTION `EnableDisable_function` (email_ varchar(45), firstName_ varchar(45), lastName_ varchar(45), office_ varchar(45), active_ int) RETURNS INT
+BEGIN
+
+declare userId integer;
+
+select u.Id into userId
+
+  from users u
+    join offices on u.officeId = office.Id
+
+  where u.email = email_ and
+    u.firstName = firstName_ and
+    u.lastName = lastName_ and
+  offices.Title = office_;
+ if isnull(userid) then
+    return 1;
+ end if;
+
+update users set active = active_ where id = userid;
+return 0;
+
+END $$
+
+DELIMITER ;

@@ -1,0 +1,39 @@
+DELIMITER $$
+use `session1` $$
+
+DROP FUNCTION IF EXISTS `Login_function` $$
+CREATE FUNCTION `Login_function` (login varchar(45), pass varchar(45)) RETURNS INT
+BEGIN
+
+  Declare userId_ integer;
+  Declare sessionId integer;
+  Declare eventId integer;
+  Declare statusId integer;
+  Declare userIsActive integer;
+
+  select Id, Active into userId_, userIsActive
+    from users u
+    where u.email = login and u.`password` = MD5(pass) ;
+
+  if ISNULL(userId_) then
+    return 0;
+  end if;
+
+  if userIsActive = 0 then
+    return -1;
+  end if;
+
+  update sessions set isActive = 0 where userId = userId_;
+
+  insert sessions values(NULL, userId_, 1);
+  select Max(Id) into sessionId from sessions;
+
+  select Id into eventId from `events` where Name = 'Login';
+  select Id into statusId from `events` where Name = 'Success';
+
+  insert tracking values(NULL, userId_, eventId, statusId, Null, NOW(), sessionId);
+  return sessionId;
+
+END $$
+
+DELIMITER ;

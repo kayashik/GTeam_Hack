@@ -1,0 +1,25 @@
+DELIMITER $$
+
+use `session1` $$
+
+DROP FUNCTION IF EXISTS `CheckLogin_function` $$
+CREATE FUNCTION `CheckLogin_function` (sessionId integer) RETURNS INT
+BEGIN
+
+  Declare userId integer;
+  Declare roleId integer;
+
+    select ses.UserId, u.roleId into userId
+    from sessions ses
+      join users on ses.UserId = users.Id
+    WHERE sessionId = sessionId and isActive = 1;
+
+  if ISNULL(userId) then
+    return 0;
+  else
+    return roleId;
+  end if;
+
+END $$
+
+DELIMITER ;

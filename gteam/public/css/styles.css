@@ -1,0 +1,409 @@
+/** Fonts **/
+
+@font-face {
+    font-family: TCB_____;
+    src: url(/fonts/TCB_____.tff);
+}
+@font-face {
+    font-family: TCBI____;
+    src: url(/fonts/TCBI____.tff);
+}
+@font-face {
+    font-family: TCCB____;
+    src: url(/fonts/TCCB____.tff);
+}
+@font-face {
+    font-family: TCCEB;
+    src: url(/fonts/TCCEB.tff);
+}
+@font-face {
+    font-family: TCCM____;
+    src: url(/fonts/TCCM____.tff);
+}
+@font-face {
+    font-family: TCM_____;
+    src: url(/fonts/TCM_____.tff);
+}
+@font-face {
+    font-family: TCMI____;
+    src: url(/fonts/TCMI____.tff);
+}
+@font-face {
+    font-family: TeXGyreAdventor-Bold;
+    src: url(/fonts/TeXGyreAdventor-Bold.tff);
+}
+@font-face {
+    font-family: TeXGyreAdventor-Italic;
+    src: url(/fonts/TeXGyreAdventor-Italic.tff);
+}
+@font-face {
+    font-family: TeXGyreAdventor-BoldItalic;
+    src: url(/fonts/TeXGyreAdventor-BoldItalic.tff);
+}
+@font-face {
+    font-family: TeXGyreAdventor-Regular;
+    src: url(/fonts/TeXGyreAdventor-Regular.tff);
+}
+@font-face {
+    font-family: verdana;
+    src: url(/fonts/verdana.tff);
+}
+@font-face {
+    font-family: verdanab;
+    src: url(/fonts/verdanab.tff);
+}
+@font-face {
+    font-family: verdanai;
+    src: url(/fonts/verdanai.tff);
+}
+@font-face {
+    font-family: verdanaz;
+    src: url(/fonts/verdanaz.tff);
+}
+
+/** Some stuff **/
+
+html, body {
+    background-color: #fff;
+    color: #636b6f;
+    font-family: 'TeXGyreAdventor-Italic', 'TeXGyreAdventor-Regular';
+    font-weight: 100;
+    height: 100vh;
+    margin: 0;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.position-ref {
+    position: relative;
+}
+
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+.title {
+    font-size: 84px;
+}
+
+.m-b-5 {
+    margin-bottom: 5px;
+}
+
+.m-l-5 {
+    margin-left: 5px;
+}
+
+.m-r-5 {
+    margin-right: 5px;
+}
+
+.m-b-md {
+    margin-bottom: 30px;
+}
+
+.m-l-70 {
+    margin-left: 70px;
+}
+
+.m-r-70 {
+    margin-right: 70px;
+}
+
+.p-l-48 {
+    padding-left: 48px;
+}
+
+.p-r-48 {
+    padding-right: 48px;
+}
+
+.p-l-70 {
+    padding-left: 70px;
+}
+
+.p-r-70 {
+    padding-right: 70px;
+}
+
+.sm-text-center {
+    text-align: center !important;
+}
+.p-t-14 {
+    padding-top: 14px !important;
+}
+.p-b-14 {
+    padding-bottom: 14px !important;
+}
+.no-margin {
+    margin: 0px !important;
+}
+.sm-pull-reset{
+    float: none !important;
+}
+.font-additional {
+    font-family: "Roboto" !important;
+}
+.sm-pull-reset{
+    float: none !important;
+}
+/* Cards */
+
+.card {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #ccc;
+    height: 250px;
+    width: 100%;
+    box-shadow: 1px 1px 2px black;
+    margin-bottom: 15px;
+}
+.card-img {
+    width: 100%;
+    height: 100%;
+}
+.card-body {
+    position: absolute;
+    left: 0;
+    bottom: 32px;
+    color: white;
+    background: black;
+    opacity: 0.75;
+    padding: 0px 5px 0px 5px;
+    font-size: 25px;
+}
+
+.card-link {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.card-link:hover {
+    background: whitesmoke;
+    opacity: 0.3;
+}
+
+.card-default {
+    box-shadow: none;
+    border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    transition: all 0.2s ease;
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    margin: 20px 0px 10px 0px;
+    height: auto !important;
+}
+
+.card-header {
+    color: #333;
+    background: transparent;
+    border-radius: 0px;
+    border-bottom: 0px;
+    padding: 20px 20px 7px 20px;
+    position: relative;
+    z-index: 3;
+    min-height: 48px;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.card-block {
+    padding: 20px;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    box-sizing: inherit;
+}
+/* admin block */
+
+.index-block {
+    background: #f8f8f8;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.image-preview {
+    max-width: 300px;
+    max-height: 200px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.img-view {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.check-success,.check-primary, .check-info, .check-warning, .check-danger {
+    display:inline-block;
+}
+
+/* alerts */
+.alert {
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 9px 19px 9px 15px;
+    border-radius: 3px;
+    font-size: 13px;
+    border-width: 0;
+    transition: all 0.2s linear 0s;
+}
+
+.alert.bordered {
+    border-width: 1px;
+}
+
+.alert .link {
+    color: #ce8f22;
+    font-weight: bold;
+}
+
+.alert .alert-heading {
+    color: #ce8f22 !important;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.alert .btn-small {
+    position: relative;
+    top: -3.5px;
+}
+
+.alert .button-set .btn {
+    position: relative;
+    top: 8px;
+}
+
+/* Alert : Color Options
+------------------------------------
+*/
+.alert-danger,
+.alert-error {
+    background-color: #fbd5dd;
+    color: #8c1a32;
+    border-color: #8c1a32;
+}
+
+.alert-danger .close,
+.alert-error .close {
+    background-position: -95px -10px !important;
+}
+
+.alert-warning {
+    background-color: #fff7e2;
+    color: #988142;
+    border-color: #988142;
+}
+
+.alert-info {
+    background-color: #ccfaf1;
+    color: #008b70;
+    border-color: #008b70;
+}
+
+.alert-info .close {
+    background-position: -67px -10px !important;
+}
+
+.alert-success {
+    background-color: #cce5fa;
+    color: #004a8b;
+    border-color: #004a8b;
+}
+
+.alert-success .close {
+    background-position: -38px -10px !important;
+}
+
+.alert-default {
+    background-color: #fff;
+    color: #7a8994;
+    border-color: #eaecee;
+}
+
+.alert-default .close {
+    background-position: -67px -10px !important;
+}
+
+/** Login page **/
+
+.login-wrapper {
+    height: 100%;
+    /* background-color: $color-primary; */
+}
+
+.login-wrapper > * {
+    height: 100%;
+}
+
+.login-wrapper .bg-pic {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+}
+
+.login-wrapper .bg-pic > img {
+    height: 100%;
+    opacity: 0.6;
+}
+
+.login-wrapper .login-container {
+    width: 496px;
+    display: block;
+    position: relative;
+    float: right;
+}
+
+.login-wrapper .bg-caption {
+    width: 500px;
+}
+
+.register-container {
+    width: 550px;
+    margin: auto;
+    height: 100%;
+}
+.login-wrapper .login-container {
+    width: 100%;
+}
+.register-container {
+    width: 100%;
+    padding: 15px;
+}
+
+.login-container {
+    text-align: center;
+}
+
+.login-img {
+    max-width: 700px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.form-login {
+    margin: 0 auto;
+    max-width: 700px;
+    font-size: 15px;
+}

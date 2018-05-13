@@ -1,37 +1,109 @@
 from tkinter import *
 from PIL import ImageTk, Image
-#import otchet1
+import pandas as pd
+from tkinter import ttk
 
+def Recomendations():
+    inx = 0
+    values = [listbox.get(inx) for inx in listbox.curselection()]
 
-def By_pylot_otch():
     # родительский элемент
-    print( '1')
-    otch1 = Tk()
+    workspace = Tk()
     # устанавливаем название окна
-    otch1.title("Генератор отчетов")
+    workspace.title("Поведенческая модель члена летного состава")
     # устанавливаем минимальный размер окна
-    otch1.minsize(500, 500)
+    workspace.minsize(500, 500)
     # выключаем возможность изменять окно
-    otch1.resizable(width=False, height=False)
+    workspace.resizable(width=False, height=False)
+    #гененрируем фрейм
+    frame0 = Frame(workspace)
+    frame0.grid()
+    lable0 = Label(frame0, height=2, width=30, text="Заполните поля,").grid()
 
-    #хэдер
-    frame_head = Frame(otch1)
-    frame_head.pack()
 
-    Back = Button(frame_head, text="Назад").pack(side = 'left')
-    Main = Button(frame_head, text="Главная").pack(side = 'left')
-    otch1.mainloop()
+    frame1 = Frame(workspace)
+    frame1.grid()
+    lable1 = Label(frame1, height=2, width=30, text="Погодные условия").grid(row=0, column=0 )
+    v = IntVar()
+    Radiobutton(frame1, text='Хорошие', variable=v, value=3).grid(row=0, column=1)
+    Radiobutton(frame1, text='Плохиие', variable=v, value=2).grid(row=0, column=2)
 
-def change_otch():
-    Back = Button(root, text="Назад").pack(side='left')
-    root.mainloop()
+    lable2 = Label(frame1, height=2, width=30, text="Время полета").grid(row=1, column=0 )
+    v2 = Scale(frame1, from_=90, to=600, orient=HORIZONTAL).grid(row=1, column=1 )
+
+    lable3 = Label(frame1, height=2, width=30, text="Оценка за тренажеры").grid(row=2, column=0 )
+    lable4 = Label(frame1, height=2, width=30, text="Психическое состояние").grid(row=3, column=0 )
+    lable5 = Label(frame1, height=2, width=30, text="Физическое состояние").grid(row=4, column=0 )
+
+
+
+    workspace.mainloop()
+    # Вызываем функцию эмиля
+    # Emily2(value)
+#
+# def By_pylot_actions():
+#
+#     #получение имени пилота
+#     def get_ot():
+#         inx = 0
+#         values = [listbox.get(inx) for inx in listbox.curselection()]
+#         #Вызываем функцию эмиля
+#         #Emily(value)
+#
+#     # родительский элемент
+#     workspace = Tk()
+#     # устанавливаем название окна
+#     workspace.title("Поведенческая модель члена летного состава")
+#     # устанавливаем минимальный размер окна
+#     workspace.minsize(500, 500)
+#     # выключаем возможность изменять окно
+#     workspace.resizable(width=False, height=False)
+#     #гененрируем фрейм
+#     frame1 = Frame(workspace)
+#     frame1.pack()
+#
+#     #Считывание пилотов
+#     pilots = pd.read_excel('Pilots.xlsx')
+#     pilots_id = pilots.index.values
+#
+#     #Выводим список пилотов
+#     listbox = Listbox(frame1)
+#     listbox.pack(side = 'top')
+#     for item in pilots_id:
+#         listbox.insert(END, item)
+#
+#     Chouse_pilot = Button(frame1, text="Построить график для выбранного пилота",
+#                           command=get_ot).pack(side = 'top')
+#
+#     # Main = Button(frame1, text="Главная").pack(side = 'left')
+#     workspace.mainloop()
+#
+#
+#     print(values, inx, listbox.curselection())
+#
+# def change_otch():
+#     Back = Button(root, text="Назад").pack(side='left')
+#     root.mainloop()
+
+def By_pylot_actions():
+    inx = 0
+    values = [listbox.get(inx) for inx in listbox.curselection()]
+    #Вызываем функцию эмиля
+    os.system('"'+os.getcwd()+'\Pilots.xlsx"')
+    #Emily(value)
+
+def By_trends():
+    inx = 0
+    values = [listbox.get(inx) for inx in listbox.curselection()]
+    # Вызываем функцию эмиля
+    # Emily2(value)
 
 # родительский элемент
 root = Tk()
 # устанавливаем название окна
 root.title("Генератор отчетов AMONIC")
 # устанавливаем минимальный размер окна
-root.minsize(500, 500)
+root.minsize(500, 600)
 # выключаем возможность изменять окно
 root.resizable(width=False, height=False)
 # добавляем изображене
@@ -42,9 +114,33 @@ label.pack()
 frame = Frame(root)
 frame.pack()
 #Создаем кнопки
-Lepestk = Button(frame, text="Генерация Лепесткововых диаграмм", command=By_pylot_otch).pack(side = 'left')
-Trends = Button(frame, text="Генерация диаграмм трендов", command=change_otch).pack(side = 'left')
+Lepestk = Button(frame, text="Поведенческая модель члена летного состава", command=By_pylot_actions).pack(side = 'bottom')
+Trends = Button(frame, text="Рекомендации к полету", command=Recomendations).pack(side = 'bottom')
 
+#Выводим заголовок
+heder_for_listbox = Label(frame, height=2, width=30, text="Выберите пилота")
+heder_for_listbox.pack(side='top')
+# heder_for_listbox.insert(END, "Выберите пилота")
+
+
+#Считывание пилотов
+pilots = pd.read_excel('Pilots.xlsx')
+pilots_id = pilots.index.values
+
+#Выводим список пилотов
+listbox = ttk.Combobox(frame, values=str(pilots_id)[1:-1])
+listbox.pack(side = 'top')
+
+
+
+#Выводим список пилотов
+# listbox = Listbox(frame)
+# listbox.pack(side = 'top')
+# for item in pilots_id:
+#     listbox.insert(END, item)
+
+# Chouse_pilot = Button(frame, text="Построить график для выбранного пилота",
+#                       command=get_ot).pack(side = 'top')
 
 
 #хэдер

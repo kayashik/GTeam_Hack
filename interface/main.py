@@ -7,9 +7,31 @@ import numpy as np
 import datetime
 import warnings
 warnings.simplefilter('ignore')
+from sklearn.ensemble import GradientBoostingRegressor
 from Part1 import part1
+from Part2 import part2
 
 def Recomendations():
+
+    def PilotRaiting_Emy():
+        aircraft_id = listbox1.get()
+        aircraft_id = int(aircraft_id)
+
+        datetime = day_time.get()
+        # weather = wather.get()
+        print(weather, datetime, aircraft_id, traveltime)
+        text = part2(weather, datetime, aircraft_id, traveltime, threshold=65)
+        pilots_list = Text(frame1)
+        # pilots_list.grid_bbox(column=0, row=4, col2=2, row2=1)
+
+        pilots_list.grid(row=5, column=0, columnspan=3)
+        pilots_list.insert(1.0, text)
+        # workspace.mainloop()
+
+    traveltime = 1
+    def newscale(newnum):
+        traveltime = int(newnum)
+
     values =value=listbox.get()
 
     # родительский элемент
@@ -25,21 +47,29 @@ def Recomendations():
     frame0.grid()
     lable0 = Label(frame0, height=2, width=30, text="Заполните поля:").grid()
 
+    def sel():
+        weather = wather.get()
+        print(wather.get())
 
     frame1 = Frame(workspace)
     frame1.grid()
     lable1 = Label(frame1, height=2, width=30, text="Погодные условия").grid(row=0, column=0 )
-    wather = IntVar()
-    Radiobutton(frame1, text='Хорошие', variable=wather, value=0).grid(row=0, column=1)
-    Radiobutton(frame1, text='Плохиие', variable=wather, value=1).grid(row=0, column=2)
+    wather = StringVar()
+    raito1 = Radiobutton(frame1, text='Хорошие', variable=wather, value='Хорошие', command=sel)
+    raito1.grid(row=0, column=1)
+    raito2 = Radiobutton(frame1, text='Плохиие', variable=wather, value='Плохие', command=sel)
+    raito2.grid(row=0, column=2)
 
     lable2 = Label(frame1, height=2, width=30, text="Время полета").grid(row=1, column=0 )
-    travel_time = Scale(frame1, from_=90, to=600, orient=HORIZONTAL).grid(row=1, column=1 )
+    # travel_time = Scale(frame1, from_=90, to=600, orient=HORIZONTAL, command=newscale).grid(row=1, column=1 )
 
     lable3 = Label(frame1, height=2, width=30, text="Время суток").grid(row=2, column=0 )
-    day_time = IntVar()
-    Radiobutton(frame1, text='Светоле время', variable=day_time, value=0).grid(row=2, column=1)
-    Radiobutton(frame1, text='Темное время', variable=day_time, value=1).grid(row=2, column=2)
+
+    day_time = StringVar()
+    raito3 = Radiobutton(frame1, text='Светоле время', variable=day_time, value='Светлое')
+    raito3.grid(row=2, column=1)
+    raito4 = Radiobutton(frame1, text='Темное время', variable=day_time, value='Темное')
+    raito4.grid(row=2, column=2)
 
     lable4 = Label(frame1, height=2, width=30, text="Тип самолета").grid(row=3, column=0 )
     # Считывание пилотов
@@ -47,22 +77,22 @@ def Recomendations():
     aircrafts_id = aircrafts.index.values
 
     # Выводим список пилотов
-    listbox1 = ttk.Combobox(frame1, values=str(aircrafts_id)[1:-1]).grid(row=3, column=1 )
-    text= "1"
-    # Вызываем функцию эмиля
-    # text = Emily2(value)
+    listbox1 = ttk.Combobox(frame1, values=str(aircrafts_id)[1:-1])
+    listbox1.grid(row=3, column=1 )
 
-    pilots_list = Text(frame1)
-    # pilots_list.grid_bbox(column=0, row=4, col2=2, row2=1)
-    pilots_list.grid(row=4, column=0,columnspan=3)
-    pilots_list.insert(1.0,text)
+    # Вызываем функцию эмиля
+
+    pilot_raiting = Button(frame1, text="Оценить", command=PilotRaiting_Emy)
+    pilot_raiting.grid(row=4, column=0)
+
     workspace.mainloop()
+
 
 def By_pylot_actions():
     value=listbox.get()
     #Вызываем функцию Эмиля
     part1(int(value))
-    os.system('"' + os.getcwd() + '\Pilots.xlsx"')
+    os.system('"' + os.getcwd() + '/results.xlsx"')
 
 def PilotRaiting():
     value=listbox.get()

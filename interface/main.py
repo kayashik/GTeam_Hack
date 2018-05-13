@@ -2,15 +2,20 @@ from tkinter import *
 from PIL import ImageTk, Image
 import pandas as pd
 from tkinter import ttk
+import os
+import numpy as np
+import datetime
+import warnings
+warnings.simplefilter('ignore')
+from Part1 import part1
 
 def Recomendations():
-    inx = 0
-    values = [listbox.get(inx) for inx in listbox.curselection()]
+    values =value=listbox.get()
 
     # родительский элемент
     workspace = Tk()
     # устанавливаем название окна
-    workspace.title("Поведенческая модель члена летного состава")
+    workspace.title("Рекомендованные к полету пилоты")
     # устанавливаем минимальный размер окна
     workspace.minsize(500, 500)
     # выключаем возможность изменять окно
@@ -18,83 +23,96 @@ def Recomendations():
     #гененрируем фрейм
     frame0 = Frame(workspace)
     frame0.grid()
-    lable0 = Label(frame0, height=2, width=30, text="Заполните поля,").grid()
+    lable0 = Label(frame0, height=2, width=30, text="Заполните поля:").grid()
 
 
     frame1 = Frame(workspace)
     frame1.grid()
     lable1 = Label(frame1, height=2, width=30, text="Погодные условия").grid(row=0, column=0 )
-    v = IntVar()
-    Radiobutton(frame1, text='Хорошие', variable=v, value=3).grid(row=0, column=1)
-    Radiobutton(frame1, text='Плохиие', variable=v, value=2).grid(row=0, column=2)
+    wather = IntVar()
+    Radiobutton(frame1, text='Хорошие', variable=wather, value=0).grid(row=0, column=1)
+    Radiobutton(frame1, text='Плохиие', variable=wather, value=1).grid(row=0, column=2)
 
     lable2 = Label(frame1, height=2, width=30, text="Время полета").grid(row=1, column=0 )
-    v2 = Scale(frame1, from_=90, to=600, orient=HORIZONTAL).grid(row=1, column=1 )
+    travel_time = Scale(frame1, from_=90, to=600, orient=HORIZONTAL).grid(row=1, column=1 )
 
-    lable3 = Label(frame1, height=2, width=30, text="Оценка за тренажеры").grid(row=2, column=0 )
-    lable4 = Label(frame1, height=2, width=30, text="Психическое состояние").grid(row=3, column=0 )
-    lable5 = Label(frame1, height=2, width=30, text="Физическое состояние").grid(row=4, column=0 )
+    lable3 = Label(frame1, height=2, width=30, text="Время суток").grid(row=2, column=0 )
+    day_time = IntVar()
+    Radiobutton(frame1, text='Светоле время', variable=day_time, value=0).grid(row=2, column=1)
+    Radiobutton(frame1, text='Темное время', variable=day_time, value=1).grid(row=2, column=2)
 
+    lable4 = Label(frame1, height=2, width=30, text="Тип самолета").grid(row=3, column=0 )
+    # Считывание пилотов
+    aircrafts = pd.read_excel('Aircrafts.xlsx')
+    aircrafts_id = aircrafts.index.values
 
-
-    workspace.mainloop()
+    # Выводим список пилотов
+    listbox1 = ttk.Combobox(frame1, values=str(aircrafts_id)[1:-1]).grid(row=3, column=1 )
+    text= "1"
     # Вызываем функцию эмиля
-    # Emily2(value)
-#
-# def By_pylot_actions():
-#
-#     #получение имени пилота
-#     def get_ot():
-#         inx = 0
-#         values = [listbox.get(inx) for inx in listbox.curselection()]
-#         #Вызываем функцию эмиля
-#         #Emily(value)
-#
-#     # родительский элемент
-#     workspace = Tk()
-#     # устанавливаем название окна
-#     workspace.title("Поведенческая модель члена летного состава")
-#     # устанавливаем минимальный размер окна
-#     workspace.minsize(500, 500)
-#     # выключаем возможность изменять окно
-#     workspace.resizable(width=False, height=False)
-#     #гененрируем фрейм
-#     frame1 = Frame(workspace)
-#     frame1.pack()
-#
-#     #Считывание пилотов
-#     pilots = pd.read_excel('Pilots.xlsx')
-#     pilots_id = pilots.index.values
-#
-#     #Выводим список пилотов
-#     listbox = Listbox(frame1)
-#     listbox.pack(side = 'top')
-#     for item in pilots_id:
-#         listbox.insert(END, item)
-#
-#     Chouse_pilot = Button(frame1, text="Построить график для выбранного пилота",
-#                           command=get_ot).pack(side = 'top')
-#
-#     # Main = Button(frame1, text="Главная").pack(side = 'left')
-#     workspace.mainloop()
-#
-#
-#     print(values, inx, listbox.curselection())
-#
-# def change_otch():
-#     Back = Button(root, text="Назад").pack(side='left')
-#     root.mainloop()
+    # text = Emily2(value)
+
+    pilots_list = Text(frame1)
+    # pilots_list.grid_bbox(column=0, row=4, col2=2, row2=1)
+    pilots_list.grid(row=4, column=0,columnspan=3)
+    pilots_list.insert(1.0,text)
+    workspace.mainloop()
 
 def By_pylot_actions():
-    inx = 0
-    values = [listbox.get(inx) for inx in listbox.curselection()]
-    #Вызываем функцию эмиля
-    os.system('"'+os.getcwd()+'\Pilots.xlsx"')
-    #Emily(value)
+    value=listbox.get()
+    #Вызываем функцию Эмиля
+    part1(int(value))
+    os.system('"' + os.getcwd() + '\Pilots.xlsx"')
 
-def By_trends():
-    inx = 0
-    values = [listbox.get(inx) for inx in listbox.curselection()]
+def PilotRaiting():
+    value=listbox.get()
+    value = int(value)
+
+    # родительский элемент
+    workspace2 = Tk()
+    # устанавливаем название окна
+    workspace2.title("Оценка готовности пилота к полету")
+    # устанавливаем минимальный размер окна
+    workspace2.minsize(500, 500)
+    # выключаем возможность изменять окно
+    workspace2.resizable(width=False, height=False)
+    # гененрируем фрейм
+    frame00 = Frame(workspace2)
+    frame00.grid()
+    lable00 = Label(frame00, height=2, width=30, text="Заполните поля:").grid()
+
+    frame10 = Frame(workspace2)
+    frame10.grid()
+    lable10 = Label(frame10, height=2, width=30, text="Погодные условия").grid(row=0, column=0)
+    wather0 = IntVar()
+    Radiobutton(frame10, text='Хорошие', variable=wather0, value=0).grid(row=0, column=1)
+    Radiobutton(frame10, text='Плохиие', variable=wather0, value=1).grid(row=0, column=2)
+
+    lable20 = Label(frame10, height=2, width=30, text="Время полета").grid(row=1, column=0)
+    travel_time0 = Scale(frame10, from_=90, to=600, orient=HORIZONTAL).grid(row=1, column=1)
+
+    lable30 = Label(frame10, height=2, width=30, text="Время суток").grid(row=2, column=0)
+    day_time0 = IntVar()
+    Radiobutton(frame10, text='Светоле время', variable=day_time0, value=0).grid(row=2, column=1)
+    Radiobutton(frame10, text='Темное время', variable=day_time0, value=1).grid(row=2, column=2)
+
+    lable40 = Label(frame10, height=2, width=30, text="Тип самолета").grid(row=3, column=0)
+    # Считывание пилотов
+    aircrafts = pd.read_excel('Aircrafts.xlsx')
+    aircrafts_id = aircrafts.index.values
+
+    # Выводим список пилотов
+    listbox1 = ttk.Combobox(frame10, values=str(aircrafts_id)[1:-1]).grid(row=3, column=1)
+
+    # Вызываем функцию эмиля
+    # text = Emily2(value)
+
+    pilots_list = Text(frame10, height=10)
+    # pilots_list.grid_bbox(column=0, row=4, col2=2, row2=1)
+    pilots_list.grid(row=4, column=0, columnspan=3)
+    pilots_list.insert(1.0, text)
+
+    workspace2.mainloop()
     # Вызываем функцию эмиля
     # Emily2(value)
 
@@ -115,13 +133,12 @@ frame = Frame(root)
 frame.pack()
 #Создаем кнопки
 Lepestk = Button(frame, text="Поведенческая модель члена летного состава", command=By_pylot_actions).pack(side = 'bottom')
-Trends = Button(frame, text="Рекомендации к полету", command=Recomendations).pack(side = 'bottom')
+recomendations = Button(frame, text="Рекомендованные к полету пилоты", command=Recomendations).pack(side = 'bottom')
+pilot_raiting = Button(frame, text="Оценка готовности пилота к полету", command=PilotRaiting).pack(side = 'bottom')
 
 #Выводим заголовок
 heder_for_listbox = Label(frame, height=2, width=30, text="Выберите пилота")
 heder_for_listbox.pack(side='top')
-# heder_for_listbox.insert(END, "Выберите пилота")
-
 
 #Считывание пилотов
 pilots = pd.read_excel('Pilots.xlsx')
